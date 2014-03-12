@@ -1,0 +1,32 @@
+public class Test {
+
+	public static void main(String[] args) {
+
+		int a = new Integer(1);
+		int b = new Integer(2);
+		int c = new Integer(3);
+		int d = new Integer(4);
+
+		ListaDuplamenteEncadeada lista = new ListaDuplamenteEncadeada();
+
+		// lista.addInBegin(contato2);
+		// lista.addInBegin(contato0);
+		// lista.addInBegin(contato1);
+		// lista.addInBegin(contato2);
+		// lista.addInBegin(contato0);
+
+		lista.addInBegin(100);
+		lista.addInBegin(a);
+		lista.addInBegin("B");
+		lista.addInEnd(d);
+		lista.addForIndex(2, "X");
+		lista.addForIndex(2, b);
+		lista.addForIndex(3, c);
+		
+		lista.removePorIndice(2);
+
+		System.out.println(lista.toString());
+
+	}
+
+}

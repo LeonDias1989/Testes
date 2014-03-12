@@ -83,6 +83,42 @@ public class ListaDuplamenteEncadeada {
 			return null;
 	}
 
+	/**
+	 * Inicialmente, devemos verificar se a posição está ou não ocupada. Se não
+	 * estiver devemos lançar uma exceção. Caso contrário, devemos verificar se
+	 * a remoção é do começo ou do fim da Lista se for um destes casos
+	 * simplesmente chamamos os métodos que já fizemos.
+	 * 
+	 * Por fim, se a remoção é no interior da Lista devemos atualizar as
+	 * referências das células relacionadas a célula que vamos remover (anterior
+	 * e próxima). A próxima da anterior deve ser a próxima e a anterior da
+	 * próxima deve ser a anterior.
+	 */
+
+	public Nodo removePorIndice(int index) {
+
+		if (!this.contemElemento(index)) {
+			throw new IllegalArgumentException("Posição não existe");
+		}
+
+		if (index == 0) {
+			this.removeInBegin();
+		} else if (index == this.totalElements - 1) {
+			this.removeInEnd();
+		} else {
+			Nodo anterior = this.getElemento(index - 1);
+			Nodo atual = anterior.getProximo();
+			Nodo proxima = atual.getProximo();
+
+			anterior.setProximo(proxima);
+			proxima.setAnterior(anterior);
+
+			this.totalElements--;
+		}
+
+		return null;
+	}
+
 	public Nodo getFirstElement() {
 		return begin;
 	}
@@ -160,37 +196,37 @@ public class ListaDuplamenteEncadeada {
 	// /////////////////////MÉTODOS ESPECIAIS///////////////////////////
 
 	public ListaDuplamenteEncadeada bubbleSort() {
-	
-	 ListaDuplamenteEncadeada listAux = new ListaDuplamenteEncadeada();
-	
-	 for (Nodo i = begin; i != end; i = i.getProximo()) {
-	
-	 listAux.addInEnd(i.getDado());
-	 }
-	 listAux.addInEnd(end.getDado());
-	
-	 for (int i = 0; i < totalElements; i++) {
-	 for (int j = i + 1; j < totalElements; j++) {
-	
-	 String a = listAux.getElemento(i).getDado().toString();
-	 String b = listAux.getElemento(j).getDado().toString();
-	
-	 int result = a.compareTo(b);
-	
-	 if (result > 0) {
-	
-	 Object aux = listAux.getElemento(i).getDado();
-	 listAux.getElemento(i).setDado(
-	 listAux.getElemento(j).getDado());
-	 listAux.getElemento(j).setDado(aux);
-	 }
-	
-	 }
-	
-	 }
-	 return listAux;
-	
-	 }
+
+		ListaDuplamenteEncadeada listAux = new ListaDuplamenteEncadeada();
+
+		for (Nodo i = begin; i != end; i = i.getProximo()) {
+
+			listAux.addInEnd(i.getDado());
+		}
+		listAux.addInEnd(end.getDado());
+
+		for (int i = 0; i < totalElements; i++) {
+			for (int j = i + 1; j < totalElements; j++) {
+
+				String a = listAux.getElemento(i).getDado().toString();
+				String b = listAux.getElemento(j).getDado().toString();
+
+				int result = a.compareTo(b);
+
+				if (result > 0) {
+
+					Object aux = listAux.getElemento(i).getDado();
+					listAux.getElemento(i).setDado(
+							listAux.getElemento(j).getDado());
+					listAux.getElemento(j).setDado(aux);
+				}
+
+			}
+
+		}
+		return listAux;
+
+	}
 
 	public ListaDuplamenteEncadeada reverse() {
 
